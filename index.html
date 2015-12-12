@@ -1,25 +1,37 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <title>Financial nn by nweidler</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">Financial nn</h1>
-      <h2 class="project-tagline"></h2>
-      <a href="https://github.com/nweidler/financial_nn" class="btn">View on GitHub</a>
-      <a href="https://github.com/nweidler/financial_nn/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/nweidler/financial_nn/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
+<html>
 
-    <section class="main-content">
-      <h1>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Financial nn : ">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Financial nn</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/nweidler/financial_nn">View on GitHub</a>
+
+          <h1 id="project_title">Financial nn</h1>
+          <h2 id="project_tagline"></h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/nweidler/financial_nn/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/nweidler/financial_nn/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
 <a id="beating-the-sp-500-using-a-neural-network" class="anchor" href="#beating-the-sp-500-using-a-neural-network" aria-hidden="true"><span class="octicon octicon-link"></span></a>Beating the S&amp;P 500 Using a Neural Network</h1>
 
 <h3>
@@ -45,21 +57,18 @@ Wouldn't it be great to be able to teach a computer how to trade profitably and 
 <h4>
 <a id="inputs" class="anchor" href="#inputs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Inputs</h4>
 
-<p>The question of what should the inputs be is a complicated one.  I have chosen technical indicators for the SPY, an ETF that tracks the S&amp;P 500, to be my inputs.  There are many technical indicators to choose from, but I have boiled it down to use <a href="#moving-average-convergence-divergence-macd">MACD</a>, <a href="#relative-strength-index-rsi">RSI</a>, <a href="#average-true-range-atr">ATR</a> and the <a href="#simple-moving-average-sma">SMA-10-day</a>.   <a href="#heading">Head</a> 
-The 25 inputs are made up of several technical indicators, their  : MACD, RSI, ATR, SMA-10-day.  These technical indicators are looked examined for buy signals, as well as compared to themselves yesterday and two days ago in order to detect the trend.</p>
+<p>The question of what should the inputs be is a complicated one.  I have chosen technical indicators for the SPY, an ETF that tracks the S&amp;P 500, to be my inputs.  There are many technical indicators to choose from, but I have boiled it down to use <a href="#moving-average-convergence-divergence-macd">MACD</a>, <a href="#relative-strength-index-rsi">RSI</a>, <a href="#average-true-range-atr">ATR</a> and the <a href="#simple-moving-average-sma">SMA-10-day</a>.  These were chosen because each of them can create valid buy and sell signals, but they can create false signals as well.  They also examine various aspects of the underlying security.  RSI is a momentum indicator while ATR is a volatility indicator.  MACD is a trend indicator.  The 10 day SMA is added as a smoothing factor to the neural network.  The hope is that in combining momentum, volatility and trend into a single decision more accurate predictions will be made.
+In order to supply the neural network with more information, these technical indicators are examined for buy signals, as well as compared to themselves yesterday and two days ago in order to detect the trend.  The neural network isn't just getting a snapshot of a single day, but will be getting three days worth of information to base its decision.  It will hopefully be able to not only see that a stock is overbought, but will be able to see that it is more overbought than yesterday and the day before.  Or perhaps it will see that it was overbought for the past two days and today it isn't, so maybe that is a good time to buy?  We'll leave it up to the neural network to make the connections, but these are just given as examples to what I hope will be learned.</p>
 
 <h4>
 <a id="expected-outputs" class="anchor" href="#expected-outputs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Expected Outputs</h4>
 
-<p>Now determined by a stop loss.  To build the training data I allow the system to risk 1% of its working capital.  Each morning I simulate a buy of the S&amp;P 500.  I then look forward in historical data to see when the trade would be stopped buy loosing 1%.  At the time of the stop if I made more than 5% I call that a buy and set the expected output to 1 for that day.  Otherwise it is set to 0.</p>
+<p>In order to train the neural network a training set needs to be compiled.  This includes a set of past inputs paired with a set of expected outputs.  Building the set of inputs is straightforward.  You just need historical data converted into input format.  The set of expected outputs is more complicated to generate.  Again, historical data is used to form these.  To build the training data I allow the system to risk 1% of its working capital.  Each morning I simulate a buy of the S&amp;P 500.  I then look forward in historical data to see when the trade would be stopped buy loosing 1%.  At the time of the stop if I made more than 5% I call that a buy and set the expected output to 1 for that day.  Otherwise it is set to 0.  Below is a code snippet showing how I setup the expected output training data.</p>
 
 <p><img src="https://cloud.githubusercontent.com/assets/10660367/11338993/733cae56-91b4-11e5-9cc5-ac91ed0c14b4.PNG" alt="output_code"></p>
 
-<h1>
-<a id="heading" class="anchor" href="#heading" aria-hidden="true"><span class="octicon octicon-link"></span></a>heading</h1>
-
 <h3>
-<a id="current-test" class="anchor" href="#current-test" aria-hidden="true"><span class="octicon octicon-link"></span></a>Current Test</h3>
+<a id="current-state-of-the-neural-network" class="anchor" href="#current-state-of-the-neural-network" aria-hidden="true"><span class="octicon octicon-link"></span></a>Current State of the Neural Network</h3>
 
 <p>Runs for 265 trading days, but the error doesn't reduce to a usable number.  The neural network is still not being trained, the data still looks random.</p>
 
@@ -144,15 +153,18 @@ Quantopian does have its drawbacks however.  It is relatively new and it current
 <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
 
 <p>Having trouble with Pages? Check out our <a href="https://help.github.com/pages">documentation</a> or <a href="https://github.com/contact">contact support</a> and we’ll help you sort it out.</p>
+      </section>
+    </div>
 
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/nweidler/financial_nn">Financial nn</a> is maintained by <a href="https://github.com/nweidler">nweidler</a>.</span>
-
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Financial nn maintained by <a href="https://github.com/nweidler">nweidler</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
       </footer>
+    </div>
 
-    </section>
+    
 
-  
   </body>
 </html>
