@@ -61,6 +61,22 @@ Quantopian does have its drawbacks however.  It is relatively new and it current
 <p><img src="https://cloud.githubusercontent.com/assets/10660367/11763258/ad0f2fd0-a0c0-11e5-9657-582864c38ab1.PNG" alt="rsi"></p>
 
 <h4>
+<a id="average-true-range-atr" class="anchor" href="#average-true-range-atr" aria-hidden="true"><span class="octicon octicon-link"></span></a>Average True Range (ATR)</h4>
+
+<p>ATR is a volatility indicator for financial markets.  Volatility is an important indicator which measures the strength of the price action, it can be used to separate "strong" moves from "weak" moves.  Obviously we want to participate in the strong moves.  Alone the ATR doesn't give an indication of which direction the price of a stock will move, but only how volatile the move will be.  However, many trades use a strategy in which the ATR is added to the previous day's close.  Then the next day if the price of a stock is greater than the previous close + the ATR that is considered a buy signal.  Like the other indicators, ATR uses several days of data to come up with it's value.  In this case we again are using 14 days.  The formula is as follows :  Current ATR = [(Prior ATR x 13) + Current TR] / 14 where the TR is the high-low for the day.  The formula needs a beginning, so for the first day the ATR is simply the high minus the low, and from there on the formula works out.</p>
+
+<p>Below is a chart indicating a buy strategy using the ATR.  The black line is the price of the SPY, an S&amp;P 500 exchange traded fund.  The previous days close is added to the ATR and that is indicated by a red dot.  Buy signals are generated when the price rises above the red dot for the day.</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/10660367/11763327/600f8696-a0c3-11e5-8280-81d2c027bc7a.PNG" alt="atr"></p>
+
+<h4>
+<a id="simple-moving-average-sma" class="anchor" href="#simple-moving-average-sma" aria-hidden="true"><span class="octicon octicon-link"></span></a>Simple Moving Average (SMA)</h4>
+
+<p>The Simple Moving Average is the mean of the price of a stock over a certain period.  For example, to calculate the 10 day SMA you add together the price of the stock for the last 10 days and then divide it by 10.  The longer the period the smoother and less reactive the SMA will be.  Moving averages as little as a couple days and as many as 17 months are used by traders.  We will use the 10 day moving average to generate buy and sell signals.  When the price of a stock is below the 10 day moving average then that stock is in a downward trend.  This is saying that todays price is less than the average of the last 10 days.  The opposite is true when the price of a stock is above the 10 day SMA.  This is illustrated below where the 20 day SMA is plotted as a solid black line over a candlestick chart of SPY.  </p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/10660367/11763393/d78e9598-a0c5-11e5-891c-e57c4c904427.PNG" alt="sma10"></p>
+
+<h4>
 <a id="inputs" class="anchor" href="#inputs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Inputs</h4>
 
 <p>Greatly expanded the inputs: now there are 25 inputs comparing several technical indicators : MACD, RSI, ATR, SMA-10-day.  These technical indicators are looked examined for buy signals, as well as compared to themselves yesterday and two days ago in order to detect the trend.</p>
