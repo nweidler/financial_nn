@@ -43,13 +43,22 @@ Quantopian does have its drawbacks however.  It is relatively new and it current
 <a id="chosen-technical-indicators" class="anchor" href="#chosen-technical-indicators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Chosen Technical Indicators</h3>
 
 <h4>
-<a id="moving-average-convergence-divergence-or-macd" class="anchor" href="#moving-average-convergence-divergence-or-macd" aria-hidden="true"><span class="octicon octicon-link"></span></a>Moving Average Convergence Divergence or MACD</h4>
+<a id="moving-average-convergence-divergence-macd" class="anchor" href="#moving-average-convergence-divergence-macd" aria-hidden="true"><span class="octicon octicon-link"></span></a>Moving Average Convergence Divergence (MACD)</h4>
 
-<p>The MACD helps traders determine the future movement in a given security.  The MACD incorporates several moving averages into a single signal to find trends in a stock.  This technical indicator consists of two chart lines the MACD line and the signal line.  The MACD line is made up of the difference between the 26 day exponential moving average and the 12 day exponential moving average.  The signal line is made up of the 9 day moving average.  When the signal line is below the MACD line and crosses above it this is a bullish signal, or a signal to buy.  When the signal line is above the MACD line and crosses under it this is considered a bearish or sell signal.</p>
+<p>The MACD helps traders determine the future movement in a given security.  The MACD incorporates several moving averages into a single signal to find trends in a stock.  This technical indicator consists of two chart lines the MACD line and the signal line.  The MACD line is made up of the difference between the 26 day exponential moving average and the 12 day exponential moving average.  The signal line is made up of the 9 day moving average.  When the MACD is below the signal line and crosses above it this is a bullish signal, or a signal to buy.  When the MACD is above the signal line and crosses under it this is considered a bearish or sell signal.</p>
+
+<p>The MACD indicator is illustrated in the chart below.  The MACD is drawn below a price chart of an unnamed stock. The solid line is the MACD and the dotted line is the signal line.  As can be seen at the arrow labeled "Downward Cross," when the MACD line crosses below the signal line the price of the stock (drawn above) falls.  Then at the arrow labeled "Upward Cross" the MACD line crosses above the signal line and the price of the security subsequently increases.</p>
 
 <p><img src="https://cloud.githubusercontent.com/assets/10660367/11763082/12c1ac74-a0ba-11e5-98cf-79fcfeb4790f.PNG" alt="macd"></p>
 
-<p><img src="https://cloud.githubusercontent.com/assets/10660367/11763081/12c18280-a0ba-11e5-86b1-8a1ce30b12bc.PNG" alt="rsi"></p>
+<h4>
+<a id="relative-strength-index-rsi" class="anchor" href="#relative-strength-index-rsi" aria-hidden="true"><span class="octicon octicon-link"></span></a>Relative Strength Index (RSI)</h4>
+
+<p>The RSI is a technical indicator that allows uses momentum to create buy and sell signals.  It basically compares the magnitude of recent gains to recent losses.  The formula for computing this is as follows: RS = Average of x days' up closes / Average of x days' down closes.  Plug RS into the following formula to get: RSI = 100 - 100/(1 + RS).  A typical value for x (and the one I used) is 14 days.  So What this formula does is takes the average daily gain of a stock divided by the average daily loss of a stock over a 14 day period.  It then normalizes those results to be between 0 and 100.  If the RSI of a stock is below 30 it is considered oversold and may be due to increase in price.  If the RSI of a stock is above 70 it is considered overbought and a decline in stock price may be expected.  </p>
+
+<p>The chart below shows the RSI plotted under a nameless stock.  Times when the RSI is oversold (under 30) and overbought (above 70) are indicated by a red circle.  As can be seen by the activity of the stock price above the RSI often and overbought signal will see an increase in stock price, but it isn't always immediate.</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/10660367/11763258/ad0f2fd0-a0c0-11e5-9657-582864c38ab1.PNG" alt="rsi"></p>
 
 <h4>
 <a id="inputs" class="anchor" href="#inputs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Inputs</h4>
