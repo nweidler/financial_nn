@@ -33,7 +33,19 @@
 <p>Technical analysis of the stock market has been around since the Dutch markets in the 17th century according to Wikipedia.  It is a method of predicting the future prices of securities by studying past market behavior.  Specifically technical analysis includes finding patterns in past price and volume data.  These patterns are then applied to the stock market in real-time.  I would like to teach a computer how to find patterns in historical stock market data and then look for those patterns developing in real-time in the stock market.  This is a very interesting problem because technician have use this same technique for hundreds of years to profit.  If a human can recognize these patterns in charts, a computer can also be trained to do so.  The difference is that a computer can do it more efficiently and react to the patterns much faster than any human could, maximizing profits.</p>
 
 <h3>
-<a id="changes" class="anchor" href="#changes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Changes</h3>
+<a id="platform" class="anchor" href="#platform" aria-hidden="true"><span class="octicon octicon-link"></span></a>Platform</h3>
+
+<p>I have decided to use Quantopian as a tool to help expand my wealth.  Quantopian is a "crowd-sourced hedge fund that provides the world's first browser-based algorithmic trading platform. On our platform, you can write code to execute your investment strategies, instead of relying on manual trades and emotional urges."  (Quote take from <a href="https://www.quantopian.com/faq">https://www.quantopian.com/faq</a>)
+The idea behind Quantopian is that they provide an in-browser platform which allows the user to write python algorithms to trade the stock market.  You are provided with years of historical data and functions which help you access that data efficiently.  They have built in functions to run back tests and provide useful feedback as to your algorithms risks and rewards.
+Quantopian does have its drawbacks however.  It is relatively new and it currently only supports 20 python modules that can be imported.  This makes some things more difficult but I decided to give it a try.  If you are interested in this type of thing I would recommend you try it out as well.  Quantopian recently joined forces with RobinHood (a commission free trading platform) to allow you to trade real money with algorithms created and tested on Quantopian.</p>
+
+<h3>
+<a id="chosen-technical-indicators" class="anchor" href="#chosen-technical-indicators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Chosen Technical Indicators</h3>
+
+<h4>
+<a id="moving-average-convergence-divergence-or-macd" class="anchor" href="#moving-average-convergence-divergence-or-macd" aria-hidden="true"><span class="octicon octicon-link"></span></a>Moving Average Convergence Divergence or MACD</h4>
+
+<p>The MACD helps traders determine the future movement in a given security.  The MACD incorporates several moving averages into a single signal to find trends in a stock.  This technical indicator consists of two chart lines the MACD line and the signal line.  The MACD line is made up of the difference between the 26 day exponential moving average and the 12 day exponential moving average.  The signal line is made up of the 9 day moving average.  When the signal line is below the MACD line and crosses above it this is a bullish signal, or a signal to buy.  When the signal line is above the MACD line and crosses under it this is considered a bearish or sell signal.</p>
 
 <h4>
 <a id="inputs" class="anchor" href="#inputs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Inputs</h4>
@@ -53,7 +65,7 @@
 <p>Runs for 265 trading days, but the error doesn't reduce to a usable number.  The neural network is still not being trained, the data still looks random.</p>
 
 <h3>
-<a id="resluts" class="anchor" href="#resluts" aria-hidden="true"><span class="octicon octicon-link"></span></a>Resluts</h3>
+<a id="results" class="anchor" href="#results" aria-hidden="true"><span class="octicon octicon-link"></span></a>Results</h3>
 
 <h4>
 <a id="example-of-error-reduction" class="anchor" href="#example-of-error-reduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example of Error Reduction</h4>
