@@ -72,7 +72,7 @@ In order to supply the neural network with more information, these technical ind
 <h3>
 <a id="current-state-of-the-neural-network" class="anchor" href="#current-state-of-the-neural-network" aria-hidden="true"><span class="octicon octicon-link"></span></a>Current State of the Neural Network</h3>
 
-<p>Runs for 265 trading days, but the error doesn't reduce to a usable number.  The neural network is still not being trained, the data still looks random.</p>
+<p>The training set covers 265 trading days, but the error doesn't reduce to a usable number, even after being trained over 100,000 times.  The neural network is not being trained well.  What does this mean?  For a neural network to be properly trained the error should be well below a fraction of a percent.  The error should be less than .00001.  A very low error tells us that the neural network is predicting very accurately the predicted output.  The error for the neural network doesn't reduce below 0.04.  This means that the network is wrong 4% of the time.  What is worse is that the buy signal occur 4% of the time.  It appears to me that every time there is a buy signal the neural network predicts to do nothing.  I don't think the neural network is giving any buy signals at all.  The reason for this is that the data still looks random.  This is one major problem with the stock market, it is mostly random data.</p>
 
 <h3>
 <a id="results" class="anchor" href="#results" aria-hidden="true"><span class="octicon octicon-link"></span></a>Results</h3>
@@ -80,22 +80,39 @@ In order to supply the neural network with more information, these technical ind
 <h4>
 <a id="example-of-error-reduction" class="anchor" href="#example-of-error-reduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example of Error Reduction</h4>
 
-<p><img src="https://cloud.githubusercontent.com/assets/10660367/11338320/a0750f52-91b0-11e5-9ac7-3e69fc420e60.PNG" alt="error_good"></p>
+<p>This is an example of the error reduction of an neural network that becomes well trained by the end of the training set.  As can be seen the error reduces very quickly at first, and then more slowly towards the end.
+<img src="https://cloud.githubusercontent.com/assets/10660367/11338320/a0750f52-91b0-11e5-9ac7-3e69fc420e60.PNG" alt="error_good"></p>
 
 <h4>
 <a id="my-error-reduction" class="anchor" href="#my-error-reduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>My Error Reduction</h4>
 
-<p><img src="https://cloud.githubusercontent.com/assets/10660367/11338325/a7c3728a-91b0-11e5-97cf-edb80f06e906.PNG" alt="error_chart"></p>
+<p>This chart shows my error reduction.  As can be seen, no matter how many times the neural network runs over the training set, the error is pegged just under 5%
+<img src="https://cloud.githubusercontent.com/assets/10660367/11338325/a7c3728a-91b0-11e5-97cf-edb80f06e906.PNG" alt="error_chart"></p>
 
 <h4>
 <a id="my-error-changing" class="anchor" href="#my-error-changing" aria-hidden="true"><span class="octicon octicon-link"></span></a>My Error Changing</h4>
 
-<p><img src="https://cloud.githubusercontent.com/assets/10660367/11338321/a63ec478-91b0-11e5-9a5d-699bc98e1f5f.PNG" alt="error_changing"></p>
+<p>As shown below, my error does change for a while.
+<img src="https://cloud.githubusercontent.com/assets/10660367/11338321/a63ec478-91b0-11e5-9a5d-699bc98e1f5f.PNG" alt="error_changing"></p>
 
 <h4>
 <a id="my-error-settling" class="anchor" href="#my-error-settling" aria-hidden="true"><span class="octicon octicon-link"></span></a>My Error Settling</h4>
 
-<p><img src="https://cloud.githubusercontent.com/assets/10660367/11338330/aa6b163c-91b0-11e5-9e56-396330c3a011.PNG" alt="errors_end"></p>
+<p>Then the error settles and stops changing at all.  The training is obviously finished, it just misses all the buys.
+<img src="https://cloud.githubusercontent.com/assets/10660367/11338330/aa6b163c-91b0-11e5-9e56-396330c3a011.PNG" alt="errors_end"></p>
+
+<h4>
+<a id="what-happened" class="anchor" href="#what-happened" aria-hidden="true"><span class="octicon octicon-link"></span></a>What happened?</h4>
+
+<p>I have investigated several possibilities in depth as to what may have went wrong.  Why wasn't my neural network making me millions?  The problem is the inputs given.  Although these inputs were iterated over and changed multiple times the ones I ended up with gave the best results.</p>
+
+<h4>
+<a id="the-problem" class="anchor" href="#the-problem" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Problem</h4>
+
+<p>Random Looking Data
+The problem is that given the same inputs I told my neural network to not buy more times than I told it to buy.  Here is an example to illustrate.  This is actual data printed out from my training set.  The first column shows the actual input data, the second column shows the number of times this exact pattern was given as inputs with a 0 (or do nothing) given as the expect output and the third column shows the number of times these inputs were given with an expected output of 1 (or buy.)  This shows the false buy signals are always greater than the actual buy signals, so the neural network won't ever be able to make a buy.  For every group of inputs associated with a buy, there are more instances of those inputs associated with a "do nothing" signal.</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/10660367/11764761/4273ee9c-a0fa-11e5-8893-bf95aa738f76.PNG" alt="randomdata"></p>
 
 <h3>
 <a id="platform" class="anchor" href="#platform" aria-hidden="true"><span class="octicon octicon-link"></span></a>Platform</h3>
