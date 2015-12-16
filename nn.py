@@ -6,6 +6,18 @@
 ##http://iamtrask.github.io/2015/07/12/basic-python-network/
 #
 
+#Training column inputs (binary):
+#7 inputs for RSI
+#RSI < 30, 30 <= RSI <= 70, RSI > 70, RSI > RSI yesterday, RSI < RSI yesterday, RSI > RSI 2 days ago, RSI < RSI 2 days ago
+#6 inputs for MACD
+#MACD-SIG > 1, MACD-SIG < 1, MACD-SIG > yesterday, MACD-SIG < yesterday, MACD-SIG > 2 days ago, MACD-SIG < 2 days ago
+#2 for ATR
+#ATR_UP > 0, ATR_UP <= 0
+#6 inputs for SMA5
+#SMA5 <= open, SMA5 > open, SMA5 <= SMA5 yesterday, SMA5 > SMA5 yesterday, SMA5 <= 2 days ago, SMA5 > 2  days ago
+#
+#open to open, close to close, ema to ema
+
 import talib
 import numpy as np
 import math
@@ -147,15 +159,18 @@ def handle_data(context, data):
                         high_price = context.open_data[x+y]
                     loss = (high_price - context.open_data[x+y])/high_price
                 else:
+                    money_made = context.open_data[x+y] - buy_price
+                    percent_up = money_made / buy_price
                     break
-            print str("stoped making money : ") + str(x) + str(" : ")  + str(buy_price) + str(" : ") + str(context.open_data[x+y]) + str(" : ") + str(y) + str(" : ") + str(high_price) + str(" : ") + str(high_price-buy_price)
-            percent_increase = (context.close_data[x]-context.open_data[x])/context.open_data[x]
+            if(percent_up > 0.05):
+#                print str("stoped making money x: ") + str(x) + str(" b: ")  + str(buy_price) + str(" c: ") + str(context.open_data[x+y]) + str(" y: ") + str(y) + str(" h: ") + str(high_price) + str(" : ") + str(high_price-buy_price) + str(" mm: ") + str(money_made) + str(" pu: ") + str(percent_up) 
+#            percent_increase = (context.close_data[x]-context.open_data[x])/context.open_data[x]
         
 #        if(context.close_data[x] > context.open_data[x]):
 #            outputs.append(1)
-            if(sma5[x] > context.open_data[x]):
+#            if(sma5[x] > context.open_data[x]):
                 outputs.append(1)
-                percent_total = percent_total + percent_increase
+#                percent_total = percent_total + percent_increase
 #            print str(percent_increase) + " : " + str(context.close_data[x]) + " : " + str(context.open_data[x]) + " : " + str(sma5[x])
             else:
                 outputs.append(0)
@@ -168,6 +183,7 @@ def handle_data(context, data):
 #        print len(context.open_data)
 #        print len(outputs)
         context.training_outputs = np.column_stack((outputs[0:-1])).T
+        print(context.training_outputs)
 #        print len(context.training_outputs)
 #        print context.training_outputs
         
